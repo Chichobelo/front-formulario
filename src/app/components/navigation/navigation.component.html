@@ -1,0 +1,23 @@
+<!-- Navegación con pestañas -->
+<ul class="nav nav-tabs justify-content-center mb-4">
+  <li class="nav-item">
+    <a class="nav-link" 
+       [class.active]="activeTab === 'estudiantes'" 
+       (click)="onTabChange('estudiantes')">👨‍🎓 Estudiantes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" 
+       [class.active]="activeTab === 'libros'" 
+       (click)="onTabChange('libros')">📚 Libros</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" 
+       [class.active]="activeTab === 'prestamos'" 
+       (click)="onTabChange('prestamos')">📖 Préstamos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" 
+       [class.active]="activeTab === 'recordatorios'" 
+       (click)="onTabChange('recordatorios')">📩 Recordatorios</a>
+  </li>
+</ul>

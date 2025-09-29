@@ -1,0 +1,28 @@
+/* Encabezado */
+.header-logo {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.logo-ucc {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+  background: transparent;
+  mix-blend-mode: multiply;
+  margin-bottom: -10px;
+}
+
+.header-logo h2 {
+  margin-top: -15px !important;
+  margin-bottom: 0.5rem !important;
+  font-weight: 600;
+  color: #3ecf76; /* Verde institucional */
+}
+
+/* Ajustes en móviles */
+@media (max-width: 768px) {
+  .logo-ucc {
+    width: 150px;
+  }
+}

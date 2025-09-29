@@ -1,0 +1,73 @@
+<!-- Estudiantes -->
+<div class="row">
+  <div class="col-md-6">
+    <div class="card shadow-sm p-4">
+      <h5 class="mb-3">Registrar Nuevo Estudiante</h5>
+      <form #estudianteForm="ngForm" (ngSubmit)="onSubmit(estudianteForm)">
+        <div class="mb-3">
+          <label class="form-label">Nombre completo *</label>
+          <input type="text" name="nombre" class="form-control" 
+                 placeholder="Ej: Juan Pérez García" 
+                 [(ngModel)]="nuevoEstudiante.nombre" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Correo electrónico *</label>
+          <input type="email" name="correo" class="form-control" 
+                 placeholder="Ej: juan.perez@estudiante.edu"
+                 [(ngModel)]="nuevoEstudiante.correo" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">ID *</label>
+          <input type="text" name="id" class="form-control" 
+                 placeholder="Ej: 8080"
+                 [(ngModel)]="nuevoEstudiante.id" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Programa *</label>
+          <select class="form-select" name="programa" 
+                  [(ngModel)]="nuevoEstudiante.programa" required>
+            <option value="" disabled>Selecciona el programa académico</option>
+            <option value="Ingeniería de Software">Ingeniería de Software</option>
+            <option value="Ingeniería Civil">Ingeniería Civil</option>
+            <option value="Medicina">Medicina</option>
+            <option value="Derecho">Derecho</option>
+            <option value="Enfermería">Enfermería</option>
+            <option value="Negocios Internacionales">Negocios Internacionales</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Teléfono</label>
+          <input type="tel" name="telefono" class="form-control" 
+                 placeholder="Ej: +57 301 222 222"
+                 [(ngModel)]="nuevoEstudiante.telefono">
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100" 
+                [disabled]="!estudianteForm.valid">
+          Registrar Estudiante
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista -->
+  <div class="col-md-6">
+    <div class="card shadow-sm p-4">
+      <h5 class="mb-3">Estudiantes Registrados</h5>
+      <ul class="list-group mt-2" *ngIf="estudiantes.length > 0; else noEstudiantes">
+        <li class="list-group-item" *ngFor="let est of estudiantes">
+          <strong>{{ est.nombre }}</strong> - {{ est.correo }} <br>
+          <small class="text-muted">{{ est.programa }}</small>
+          <span *ngIf="est.telefono" class="text-muted"> - {{ est.telefono }}</span>
+        </li>
+      </ul>
+      <ng-template #noEstudiantes>
+        <p class="text-muted">No hay estudiantes registrados aún</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

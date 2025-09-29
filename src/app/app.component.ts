@@ -1,10 +1,26 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// Importar los componentes
+import { HeaderComponent } from './components/header/header.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { EstudiantesComponent } from './components/estudiantes/estudiantes.component';
+import { LibrosComponent } from './components/libros/libros.component';
+import { PrestamosComponent } from './components/prestamos/prestamos.component';
+import { RecordatoriosComponent } from './components/recordatorios/recordatorios.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule], // habilita *ngIf, *ngFor, *ngSwitch
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    NavigationComponent,
+    EstudiantesComponent,
+    LibrosComponent,
+    PrestamosComponent,
+    RecordatoriosComponent
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -18,20 +34,4 @@ export class AppComponent {
   setActiveTab(tab: string) {
     this.activeTab = tab;
   }
-
-  // 🔹 Datos simulados (mock)
-  estudiantes = [
-    { nombre: 'Juan Pérez', correo: 'juan.perez@ucc.edu.co', programa: 'Ingeniería de Software' },
-    { nombre: 'María López', correo: 'maria.lopez@ucc.edu.co', programa: 'Medicina' }
-  ];
-
-  libros = [
-    { titulo: 'Cien años de soledad', autor: 'Gabriel García Márquez' },
-    { titulo: 'El Quijote', autor: 'Miguel de Cervantes' },
-    { titulo: 'La Odisea', autor: 'Homero' }
-  ];
-
-  prestamos = [
-    { estudiante: 'Juan Pérez', libro: 'Cien años de soledad', fecha: '2025-09-25' }
-  ];
 }

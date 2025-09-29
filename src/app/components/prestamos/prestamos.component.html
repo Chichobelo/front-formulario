@@ -1,0 +1,53 @@
+<!-- Préstamos -->
+<div class="card shadow-sm p-4">
+  <h5 class="mb-3">📖 Gestión de Préstamos</h5>
+  
+  <!-- Formulario para solicitar préstamo -->
+  <form #prestamoForm="ngForm" (ngSubmit)="onSubmit(prestamoForm)" class="mb-4">
+    <div class="row">
+      <div class="col-md-4">
+        <label class="form-label">ID Estudiante *</label>
+        <input type="text" name="estudiante" class="form-control" 
+               placeholder="Ej: 8080"
+               [(ngModel)]="nuevoPrestamo.estudiante" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Libro *</label>
+        <select class="form-select" name="libro" 
+                [(ngModel)]="nuevoPrestamo.libro" required>
+          <option value="" disabled>Seleccione un libro</option>
+          <option *ngFor="let libro of libros" [value]="libro.titulo">
+            {{ libro.titulo }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Fecha *</label>
+        <input type="date" name="fecha" class="form-control"
+               [(ngModel)]="nuevoPrestamo.fecha" required>
+      </div>
+      <div class="col-md-2 d-flex align-items-end">
+        <button type="submit" class="btn btn-dark w-100" 
+                [disabled]="!prestamoForm.valid">
+          Solicitar
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Lista de préstamos activos -->
+  <h6 class="mt-4">Préstamos Activos</h6>
+  <ul class="list-group mt-2" *ngIf="prestamos.length > 0; else noPrestamos">
+    <li class="list-group-item" *ngFor="let p of prestamos">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ p.estudiante }}</strong> → {{ p.libro }} <br>
+          <small class="text-muted">Fecha: {{ p.fecha }}</small>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <ng-template #noPrestamos>
+    <p class="text-muted">No hay préstamos registrados</p>
+  </ng-template>
+</div>

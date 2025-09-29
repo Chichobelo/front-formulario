@@ -1,148 +1,29 @@
 <div class="container mt-4">
   <!-- Encabezado -->
-  <div class="text-center mb-4 header-logo">
-    <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*-vWyskCCMCt9qOu0UdrSoQ.png" 
-         alt="Logo UCC" class="logo-ucc">
-    <h2>Sistema de Biblioteca Estudiantil UCC</h2>
-    <p class="text-muted">Gestión integral de estudiantes, libros y préstamos</p>
-  </div>
+  <app-header></app-header>
 
-  <!-- Tabs -->
-  <ul class="nav nav-tabs justify-content-center mb-4">
-    <li class="nav-item">
-      <a class="nav-link" [class.active]="activeTab==='estudiantes'" (click)="setActiveTab('estudiantes')"> Estudiantes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [class.active]="activeTab==='libros'" (click)="setActiveTab('libros')">Libros</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [class.active]="activeTab==='prestamos'" (click)="setActiveTab('prestamos')">Préstamos</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [class.active]="activeTab==='recordatorios'" (click)="setActiveTab('recordatorios')">Recordatorios</a>
-    </li>
-  </ul>
+  <!-- Navegación -->
+  <app-navigation 
+    [activeTab]="activeTab" 
+    (tabChange)="setActiveTab($event)">
+  </app-navigation>
 
   <!-- Contenido dinámico -->
   <div [ngSwitch]="activeTab">
-
-    <!-- Estudiantes -->
     <div *ngSwitchCase="'estudiantes'">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card shadow-sm p-4">
-            <h5 class="mb-3">Registrar Nuevo Estudiante</h5>
-            <form>
-              <div class="mb-3">
-                <label class="form-label">Nombre completo *</label>
-                <input type="text" class="form-control" placeholder="Ej: Juan Pérez García">
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Correo electrónico *</label>
-                <input type="email" class="form-control" placeholder="Ej: juan.perez@estudiante.edu">
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">ID *</label>
-                <input type="text" class="form-control" placeholder="Ej: 8080">
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Programa *</label>
-                <select class="form-select">
-                  <option selected disabled>Selecciona el programa académico</option>
-                  <option>Ingeniería de Software</option>
-                  <option>Ingeniería Civil</option>
-                  <option>Medicina</option>
-                  <option>Derecho</option>
-                  <option>Enfermería</option>
-                  <option>Negocios Internacionales</option>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Teléfono</label>
-                <input type="text" class="form-control" placeholder="Ej: +57 301 222 222">
-              </div>
-
-              <button type="submit" class="btn btn-dark w-100">Registrar Estudiante</button>
-            </form>
-          </div>
-        </div>
-
-        <!-- Lista -->
-        <div class="col-md-6">
-          <div class="card shadow-sm p-4">
-            <h5 class="mb-3">Estudiantes Registrados</h5>
-            <ul class="list-group mt-2" *ngIf="estudiantes.length > 0; else noEstudiantes">
-              <li class="list-group-item" *ngFor="let est of estudiantes">
-                <strong>{{ est.nombre }}</strong> - {{ est.correo }} <br>
-                <small class="text-muted">{{ est.programa }}</small>
-              </li>
-            </ul>
-            <ng-template #noEstudiantes>
-              <p class="text-muted">No hay estudiantes registrados aún</p>
-            </ng-template>
-          </div>
-        </div>
-      </div>
+      <app-estudiantes></app-estudiantes>
     </div>
-
-    <!-- Libros -->
+    
     <div *ngSwitchCase="'libros'">
-      <div class="card shadow-sm p-4">
-        <h5> Libros Disponibles</h5>
-        <ul class="list-group mt-2" *ngIf="libros.length > 0; else noLibros">
-          <li class="list-group-item" *ngFor="let libro of libros">
-            {{ libro.titulo }} - <em>{{ libro.autor }}</em>
-          </li>
-        </ul>
-        <ng-template #noLibros>
-          <p class="text-muted">No hay libros registrados</p>
-        </ng-template>
-      </div>
+      <app-libros></app-libros>
     </div>
-
-    <!-- Préstamos -->
+    
     <div *ngSwitchCase="'prestamos'">
-      <div class="card shadow-sm p-4">
-        <h5> Solicitar Préstamo</h5>
-        <form>
-          <div class="mb-3">
-            <label class="form-label">ID estudiante</label>
-            <input type="text" class="form-control" placeholder="Ej: 8080">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Libro</label>
-            <select class="form-select">
-              <option disabled selected>Seleccione un libro</option>
-              <option *ngFor="let libro of libros">{{ libro.titulo }}</option>
-            </select>
-          </div>
-          <button class="btn btn-dark w-100">Solicitar</button>
-        </form>
-
-        <h6 class="mt-4">Préstamos Activos</h6>
-        <ul class="list-group mt-2" *ngIf="prestamos.length > 0; else noPrestamos">
-          <li class="list-group-item" *ngFor="let p of prestamos">
-            {{ p.estudiante }} → <strong>{{ p.libro }}</strong> <br>
-            <small class="text-muted">Fecha: {{ p.fecha }}</small>
-          </li>
-        </ul>
-        <ng-template #noPrestamos>
-          <p class="text-muted">No hay préstamos registrados</p>
-        </ng-template>
-      </div>
+      <app-prestamos></app-prestamos>
     </div>
-
-    <!-- Recordatorios -->
+    
     <div *ngSwitchCase="'recordatorios'">
-      <div class="card shadow-sm p-4">
-        <h5> Recordatorios Automáticos</h5>
-        <p class="text-muted">Aquí se mostrarán los recordatorios enviados por correo.</p>
-      </div>
+      <app-recordatorios></app-recordatorios>
     </div>
-
   </div>
 </div>
